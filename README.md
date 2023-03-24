@@ -35,3 +35,14 @@ void loop() {
 This example will print two different messages when receiving "led1;payload" or "led2;payload" over the passed Serial interface.
 
 https://user-images.githubusercontent.com/36378436/227015891-77ea332c-cabd-431a-89f3-268cdf526e25.mp4
+
+### Default handler
+
+You can listen for messages that don't have any registered handler with the ```onDefault``` method:
+
+```cpp
+com.onDefault([](String payload) {
+  Serial.print("default callback, Payload: ");
+  Serial.println(payload);
+});
+```

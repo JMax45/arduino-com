@@ -23,6 +23,8 @@ class ArduinoCom
     void loop();
     Endpoint* routes = new Endpoint[0];
     void on(char* route, void (*cb)(String payload));
+    void onDefault(void (*cb)(String body));
+    void (*defaultHandler)(String body);
     int routes_size = 0;
     Stream *serial;
     ArduinoCom(Stream *serialPort);

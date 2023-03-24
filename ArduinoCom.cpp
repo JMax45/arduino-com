@@ -32,13 +32,16 @@ void ArduinoCom::loop() {
 
     index = 0;
     const char* endpointCharArray = endpoint.c_str();
+    bool found = false;
     while(index <= routes_size) {
       if(strcmp(routes[index].route, endpointCharArray) == 0) {
         routes[index].cb(payload);
+        found = true;
         break;
       }
       index += 1;
     }
+    if(!found && defaultHandler) defaultHandler(message);
   }
 }
 
@@ -53,4 +56,8 @@ void ArduinoCom::on(char* route, void (*cb)(String payload)) {
 
   routes[routes_size-1].route = route;
   routes[routes_size-1].cb = cb;
+}
+
+void ArduinoCom::onDefault(void (*cb)(String body)) {
+  defaultHandler = cb;
 }
