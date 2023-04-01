@@ -20,15 +20,19 @@ void ArduinoCom::loop() {
     int index = 0;
     String endpoint;
     String payload;
+    bool endpointFound = false;
     while(index <= message.length()) {
       if (message[index] == ';') {
         endpoint = message.substring(0, index);
         payload = message.substring(index + 1);
+        endpointFound = true;
         break;
       } else {
         index += 1;
       }
     }
+
+    if(!endpointFound) endpoint = message;
 
     index = 0;
     const char* endpointCharArray = endpoint.c_str();
